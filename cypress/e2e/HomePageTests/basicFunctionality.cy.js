@@ -19,8 +19,8 @@ describe('Checks to See if Menu, Find Us, Call Us, and Write Us are Present', ()
 
 describe('Checks to See if Our Services Button is on the page, and if it can be clicked', () => {
     it('Should find Our Services Button, and click it', () =>{
-        homePage.findElmntOnPage('p','id','rc-front-page-services-slider-text-button',true)
-        cy.url("https://okcrovercentral.com/services") //I've arrived at the services page! Nothing more for me to do
+        homePage.findElmntOnPage('a','href','https://okcrovercentral.com/services',true) //Finds the extra service button thats in the middle of the page, and clicks it
+        cy.url().should('eq','https://okcrovercentral.com/services/')//I've arrived at the services page! Nothing more for me to do
 
     })
 })
