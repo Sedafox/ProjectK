@@ -23,7 +23,7 @@ class HomePage {
                 .contains(`${ID2}`);
 
     }
-    clickMenuButton(){
+    clickMenuBttn(){
         this.findElementOnPage('a','aria-label','Menu',true)
     }
 
