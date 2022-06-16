@@ -1,27 +1,3 @@
-/*
-import HomePage from "../../integration/PageObject/HomePage"
-import SearchPage from "../../integration/PageObject/SearchPage"
-
-const homePage = new HomePage();
-const searchPage = new SearchPage();
-
-describe('User ability to clear search bar after searching', () => {
-  it('GIVEN the user visits google.com', () => {
-      homePage.visitHomePage()
-
-  })
-    it('AND the user clicks the search bar', () => {
-        homePage.clickHomeSearch()//Click the Search element
-    })
-    it('AND the user types in something to the search bar and hits submit', () => {
-        homePage.googleSearchGenerator();
-    })
-    it('THEN user verifies the ability to clear the search bar', () => {
-        searchPage.clickSearchBar() //clicks the search bar
-        cy.focused().clear(); //Takes the focused element and clears it
-    })
-})
-*/
 import HomePage from "../../integration/PageObject/HomePage"
 
 const homePage = new HomePage();
@@ -140,3 +116,35 @@ describe('Check to See if Write Us Page is functioning properly', () => {
         cy.contains('I just wanted to say:').should('not.exist')
     })
 })
+
+describe('Ensure that the user can visit the About Us page, Services page, Maintenance page, and News page from the home screen', () =>{
+    it('Should be able to get to the About Us page from the menu ', () =>{
+        homePage.visitHomePage()
+        homePage.findElementOnPage('a','aria-label','Menu',true)
+        homePage.findElementOnPage('a','class',"rc-header-menu-single-link col-md-3 col-sm-6 first",true)
+        cy.url().should('eq','https://okcrovercentral.com/about-us/')
+    })
+    it('Should be able to get to the Services page from the menu ', () =>{
+        homePage.findElementOnPage('a','aria-label','Menu',true)
+        homePage.findElementOnPage('a','class',"rc-header-menu-single-link col-md-3 col-sm-6 second",true)
+        cy.url().should('eq','https://okcrovercentral.com/services/')
+    })
+    it('Should be able to get to the Maintenance page from the menu ', () =>{
+        homePage.findElementOnPage('a','aria-label','Menu',true)
+        homePage.findElementOnPage('a','class',"rc-header-menu-single-link col-md-3 col-sm-6 third",true)
+        cy.url().should('eq','https://okcrovercentral.com/maintenance/')
+    })
+    it('Should be able to get to the News page from the menu ', () =>{
+        homePage.findElementOnPage('a','aria-label','Menu',true)
+        homePage.findElementOnPage('a','class',"rc-header-menu-single-link col-md-3 col-sm-6",true)
+        cy.url().should('eq','https://okcrovercentral.com/news/')
+    })
+})
+
+describe('Ensure that Find Us works from the menu bar', () =>{
+    it('Should be able to get to the Find Us Page using the Menu bar', () =>{
+        homePage.findElementOnPage('img','alt','Find Rover Central', true)
+        cy.contains('Get directions').should('exist')
+    })
+})
+
