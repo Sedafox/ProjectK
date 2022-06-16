@@ -26,6 +26,9 @@ class HomePage {
     clickMenuBttn(){
         this.findElmntOnPage('a','aria-label','Menu',true) //Click Menu button on the main page
     }
+    clickSubmit(){ //Clicks submit on form
+        this.findElmntOnPage('button','type','submit',true) //click submit
+    }
 
     clickAboutUs(){
         this.findElmntOnPage('a','class',"rc-header-menu-single-link col-md-3 col-sm-6 first",true) //Click AboutUs Button

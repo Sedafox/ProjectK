@@ -80,25 +80,25 @@ describe('Check to See if Write Us Page is functioning properly', () => {
     it('Should not say Topic is required if a Topic is entered and Submit is pressed', () => {
         homePage.findElmntOnPage('select','class','form-control pseudo-placeholder', false,
         false,null,true, "An issue with a car") //This was a long one. Basically we are passing arguments saying 'select the options menu, and pick "An issue with a car"'
-        homePage.findElmntOnPage('button','type','submit',true) //click submit
+        homePage.clickSubmit()
         cy.contains('Topic is required').should('not.exist') // Make sure that pesky 'Topic is required' error isn't hanging around since we filled in a topic (an issue with a car)
     })
 
     it('Should not say Email is required if a Email is entered and Submit is pressed', () => {
         homePage.findElmntOnPage('input','name','write-us-form-email',false,true,'testeremail@test.org') //enter an email into the email field
-        homePage.findElmntOnPage('button','type','submit',true) //click submit
+        homePage.clickSubmit()
         cy.contains('Email is required').should('not.exist') //Email required shouldn't be a thing anymore
     })
         //See comments for above it statements
     it('Should not say Phone is required if a Phone Number is entered and Submit is pressed', () => {
         homePage.findElmntOnPage('input','name','write-us-form-phone',false,true,'405-431-1127')
-        homePage.findElmntOnPage('button','type','submit',true)
+        homePage.clickSubmit()
         cy.contains('Phone is required').should('not.exist')
     })
 
     it('Should not say Message is required if a Message is entered and Submit is pressed', () => {
         homePage.findElmntOnPage('textarea','name','write-us-form-message',false,true,'Hi Kyree! Long time no see. Your site is impressive. Two thumbs up!')
-        homePage.findElmntOnPage('button','type','submit',true)
+        homePage.clickSubmit()
         cy.contains('Message is required').should('not.exist')
     })
 
