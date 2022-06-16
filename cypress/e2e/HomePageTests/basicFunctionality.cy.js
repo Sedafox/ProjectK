@@ -125,16 +125,19 @@ describe('Ensure that the user can visit the About Us page, Services page, Maint
         cy.url().should('eq','https://okcrovercentral.com/about-us/')
     })
     it('Should be able to get to the Services page from the menu ', () =>{
+        homePage.visitHomePage()
         homePage.findElementOnPage('a','aria-label','Menu',true)
         homePage.findElementOnPage('a','class',"rc-header-menu-single-link col-md-3 col-sm-6 second",true)
         cy.url().should('eq','https://okcrovercentral.com/services/')
     })
     it('Should be able to get to the Maintenance page from the menu ', () =>{
+        homePage.visitHomePage()
         homePage.findElementOnPage('a','aria-label','Menu',true)
         homePage.findElementOnPage('a','class',"rc-header-menu-single-link col-md-3 col-sm-6 third",true)
         cy.url().should('eq','https://okcrovercentral.com/maintenance/')
     })
     it('Should be able to get to the News page from the menu ', () =>{
+        homePage.visitHomePage()
         homePage.findElementOnPage('a','aria-label','Menu',true)
         homePage.findElementOnPage('a','class',"rc-header-menu-single-link col-md-3 col-sm-6",true)
         cy.url().should('eq','https://okcrovercentral.com/news/')
@@ -143,6 +146,7 @@ describe('Ensure that the user can visit the About Us page, Services page, Maint
 
 describe('Ensure that Find Us works from the menu bar', () =>{
     it('Should be able to get to the Find Us Page using the Menu bar', () =>{
+        homePage.visitHomePage()
         homePage.findElementOnPage('img','alt','Find Rover Central', true)
         cy.contains('Get directions').should('exist')
     })
