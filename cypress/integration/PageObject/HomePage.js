@@ -23,6 +23,9 @@ class HomePage {
                 .contains(`${ID2}`);
 
     }
+    clickMenuButton(){
+        this.findElementOnPage('a','aria-label','Menu',true)
+    }
 
 }
 export default HomePage
