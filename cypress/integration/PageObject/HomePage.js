@@ -1,6 +1,6 @@
 class HomePage {
     visitHomePage(){
-        cy.visit('https://okcrovercentral.com')
+        cy.visit('https://okcrovercentral.com').as('Visit homes')
     }
     findTxtOnPage(text){ //find matching text in website
             cy.contains(text)

@@ -27,13 +27,21 @@ describe('Checks to See if Our Services Button is on the page, and if it can be 
 
 describe('Check to See if Write Us Page is functioning properly', () => {
     it('Should find Call us and Write Us buttons, and click it', () =>{
-        homePage.visitHomePage()
         homePage.findElementOnPageDeeper('div','id','rc-call-to-action', 'Write Us', true) //Find a div, with an id of 'rc-call-to-action', with a child that contains 'Write Us', and click it!
-        homePage.findElmntOnPage('div','id','rc-cookies-disclaimer-close',true) //Close that annoying cookies popup, cause it be messin with all our tests
     })
+    it('Should close the cookies pop-up', () =>{
+        cy.get('div[id="rc-cookies-disclaimer-close"]')
+            .click()
+            .first()
+            .as('cookies')
+    })
+
     it('Should display "Hi, My name is" to the user', () => {
-        homePage.findTxtOnPage('Hi, my name is') //Ensure the text exists
+            homePage.findTxtOnPage('Hi, my name is') //Ensure the text exists
     })
+
+
+
     it('Should display "I\'m Writing In About"', () => {
         homePage.findTxtOnPage('I\'m writing in about')
     })
@@ -117,31 +125,24 @@ describe('Check to See if Write Us Page is functioning properly', () => {
     })
 })
 
-describe('Ensure that the user can visit the About Us page, Services page, Maintenance page, and News page from the home screen', () =>{
-    it('Should be able to get to the About Us page from the menu ', () =>{
+describe('Ensure that the user can visit the About Us page, Services page, Maintenance page, and News page from the home screen', () => {
+    beforeEach(() => {
         homePage.visitHomePage()
         homePage.clickMenuBttn()
+    })
+    it('Should be able to get to the About Us page from the menu ', () => {
         homePage.clickAboutUs()
-        cy.url().should('eq','https://okcrovercentral.com/about-us/') //url should equal about-us
+        cy.url().should('eq', 'https://okcrovercentral.com/about-us/') //url should equal about-us
     })
-    it('Should be able to get to the Services page from the menu ', () =>{
-        homePage.visitHomePage()
-        homePage.clickMenuBttn()
+    it('Should be able to get to the Services page from the menu ', () => {
         homePage.clickService()
-        cy.url().should('eq','https://okcrovercentral.com/services/') //url should equal services
     })
-    it('Should be able to get to the Maintenance page from the menu ', () =>{
-        homePage.visitHomePage()
-        homePage.clickMenuBttn()
+    it('Should be able to get to the Maintenance page from the menu ', () => {
         homePage.clickMaintenance()
-        cy.url().should('eq','https://okcrovercentral.com/maintenance/') //url should equal maintenance
     })
-    it('Should be able to get to the News page from the menu ', () =>{
-        homePage.visitHomePage()
-        homePage.clickMenuBttn()
+    it('Should be able to get to the News page from the menu ', () => {
         homePage.clickNews()
-        cy.url().should('eq','https://okcrovercentral.com/news/') //url should equal news
-    })
+            })
 })
 
 describe('Ensure that Find Us works from the menu bar', () =>{
