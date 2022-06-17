@@ -19,7 +19,7 @@ describe('Checks to See if Menu, Find Us, Call Us, and Write Us are Present', ()
 
 describe('Checks to See if Our Services Button is on the page, and if it can be clicked', () => {
     it('Should find Our Services Button, and click it', () =>{
-        homePage.findElmntOnPage('a','href','https://okcrovercentral.com/services',true) //Finds the extra service button thats in the middle of the page, and clicks it
+        homePage.clickElmnt('a','href','https://okcrovercentral.com/services') //Finds the extra service button thats in the middle of the page, and clicks it
         cy.url().should('eq','https://okcrovercentral.com/services/')//I've arrived at the services page! Nothing more for me to do
 
     })
@@ -27,13 +27,13 @@ describe('Checks to See if Our Services Button is on the page, and if it can be 
 
 describe('Check to See if Write Us Page is functioning properly', () => {
     it('Should find Call us and Write Us buttons, and click it', () =>{
-        homePage.findElementOnPageDeeper('div','id','rc-call-to-action', 'Write Us', true) //Find a div, with an id of 'rc-call-to-action', with a child that contains 'Write Us', and click it!
+         homePage.clickElmnt('a','onclick','triggerHeaderWriteUs()', ) //Find a div, with an id of 'rc-call-to-action', with a child that contains 'Write Us', and click it!
     })
-    it('Should close the cookies pop-up', () =>{
+    it('Should close the cookies pop-up', () =>{ //If the cookies window exists, close it!
         cy.get('div[id="rc-cookies-disclaimer-close"]')
-            .click()
-            .first()
-            .as('cookies')
+            .then((val) => {
+                homePage.clickElmnt('div','id','rc-cookies-disclaimer-close')
+            })
     })
 
     it('Should display "Hi, My name is" to the user', () => {
@@ -73,7 +73,7 @@ describe('Check to See if Write Us Page is functioning properly', () => {
         homePage.findElmntOnPage('textarea','id','g-recaptcha-response') //does the captcha exist?
     })
     it('Should require a Name, Topic, Email, Phone, and Message', () => {
-        homePage.findElmntOnPage('button','type','submit',true) //click that submit button so we can see what is required for the contact us form
+        homePage.clickElmnt('button','type','submit') //click that submit button so we can see what is required for the contact us form
         homePage.findTxtOnPage('Name is required')
         homePage.findTxtOnPage('Topic is required')
         homePage.findTxtOnPage('Email is required')
@@ -81,31 +81,30 @@ describe('Check to See if Write Us Page is functioning properly', () => {
         homePage.findTxtOnPage('Message is required')
     })
     it('Should not say Name is required if a Name is entered and Submit is pressed', () => {
-        homePage.findElmntOnPage('input','name','write-us-form-name',false,true,'My name is Jeff') //enter 'My name is Jeff' into the name form
-        homePage.findElmntOnPage('button','type','submit',true) //click submit
+        homePage.typeInElmnt('input','name','write-us-form-name','My name is Jeff') //enter 'My name is Jeff' into the name form
+        homePage.clickElmnt('button','type','submit') //click submit
         cy.contains('Name is required').should('not.exist') //Make sure that pesky 'Name is required' error isn't hanging around since we filled in a name
     })
     it('Should not say Topic is required if a Topic is entered and Submit is pressed', () => {
-        homePage.findElmntOnPage('select','class','form-control pseudo-placeholder', false,
-        false,null,true, "An issue with a car") //This was a long one. Basically we are passing arguments saying 'select the options menu, and pick "An issue with a car"'
+        homePage.selectElement('select','class','form-control pseudo-placeholder',  "An issue with a car") //This was a long one. Basically we are passing arguments saying 'select the options menu, and pick "An issue with a car"'
         homePage.clickSubmit()
         cy.contains('Topic is required').should('not.exist') // Make sure that pesky 'Topic is required' error isn't hanging around since we filled in a topic (an issue with a car)
     })
 
     it('Should not say Email is required if a Email is entered and Submit is pressed', () => {
-        homePage.findElmntOnPage('input','name','write-us-form-email',false,true,'testeremail@test.org') //enter an email into the email field
+        homePage.typeInElmnt('input','name','write-us-form-email','testeremail@test.org') //enter an email into the email field
         homePage.clickSubmit()
         cy.contains('Email is required').should('not.exist') //Email required shouldn't be a thing anymore
     })
         //See comments for above it statements
     it('Should not say Phone is required if a Phone Number is entered and Submit is pressed', () => {
-        homePage.findElmntOnPage('input','name','write-us-form-phone',false,true,'405-431-1127')
+        homePage.typeInElmnt('input','name','write-us-form-phone','405-431-1127')
         homePage.clickSubmit()
         cy.contains('Phone is required').should('not.exist')
     })
 
     it('Should not say Message is required if a Message is entered and Submit is pressed', () => {
-        homePage.findElmntOnPage('textarea','name','write-us-form-message',false,true,'Hi Kyree! Long time no see. Your site is impressive. Two thumbs up!')
+        homePage.typeInElmnt('textarea','name','write-us-form-message','Hi Kyree! Long time no see. Your site is impressive. Two thumbs up!')
         homePage.clickSubmit()
         cy.contains('Message is required').should('not.exist')
     })
@@ -114,7 +113,7 @@ describe('Check to See if Write Us Page is functioning properly', () => {
         cy.contains('reCAPTCHA is required').should('exist') //We want to see this error message
     })
     it('Should allow user to click the x to get out of it', () => {
-        homePage.findElmntOnPage('div','class',"rc-header-dropdown-close",true) //click the div that contains the exit button
+        homePage.clickElmnt('div','class',"rc-header-dropdown-close") //click the div that contains the exit button
     })
     it('Should ensure that menu closed properly', () => { //The below elements in this it statement shouldn't exist, as the menu is closed.
         cy.contains('Hi, my name is').should('not.exist')
@@ -148,7 +147,7 @@ describe('Ensure that the user can visit the About Us page, Services page, Maint
 describe('Ensure that Find Us works from the menu bar', () =>{
     it('Should be able to get to the Find Us Page using the Menu bar', () =>{
         homePage.visitHomePage()
-        homePage.findElmntOnPage('img','alt','Find Rover Central', true) //Click the Find Us Button
+        homePage.clickElmnt('img','alt','Find Rover Central') //Click the Find Us Button
         cy.contains('Get directions').should('exist') //does Get directions exist?
     })
 })
