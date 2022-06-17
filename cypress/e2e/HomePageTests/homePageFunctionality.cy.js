@@ -1,6 +1,8 @@
 import HomePage from "../../integration/PageObject/HomePage"
+import FormPage from "../../integration/PageObject/FormPage"
 
 const homePage = new HomePage();
+const formPage = new FormPage();
 
 describe('Goes to the Homepage', () =>{
     it('Should go to the homepage', () =>{
@@ -74,11 +76,10 @@ describe('Check to See if Write Us Page is functioning properly', () => {
     })
     it('Should require a Name, Topic, Email, Phone, and Message', () => {
         homePage.clickElmnt('button','type','submit') //click that submit button so we can see what is required for the contact us form
-        homePage.findTxtOnPage('Name is required')
-        homePage.findTxtOnPage('Topic is required')
-        homePage.findTxtOnPage('Email is required')
-        homePage.findTxtOnPage('Phone is required')
-        homePage.findTxtOnPage('Message is required')
+        const text = ['Name is required','Topic is required','Email is required','Phone is required','Message is required']
+        for(let i = 0; i < text; i++){
+            cy.contains(`${text[i]}`)
+        }
     })
     it('Should not say Name is required if a Name is entered and Submit is pressed', () => {
         homePage.typeInElmnt('input','name','write-us-form-name','My name is Jeff') //enter 'My name is Jeff' into the name form
@@ -87,25 +88,25 @@ describe('Check to See if Write Us Page is functioning properly', () => {
     })
     it('Should not say Topic is required if a Topic is entered and Submit is pressed', () => {
         homePage.selectElement('select','class','form-control pseudo-placeholder',  "An issue with a car") //This was a long one. Basically we are passing arguments saying 'select the options menu, and pick "An issue with a car"'
-        homePage.clickSubmit()
+        formPage.clickSubmit()
         cy.contains('Topic is required').should('not.exist') // Make sure that pesky 'Topic is required' error isn't hanging around since we filled in a topic (an issue with a car)
     })
 
     it('Should not say Email is required if a Email is entered and Submit is pressed', () => {
         homePage.typeInElmnt('input','name','write-us-form-email','testeremail@test.org') //enter an email into the email field
-        homePage.clickSubmit()
+        formPage.clickSubmit()
         cy.contains('Email is required').should('not.exist') //Email required shouldn't be a thing anymore
     })
         //See comments for above it statements
     it('Should not say Phone is required if a Phone Number is entered and Submit is pressed', () => {
         homePage.typeInElmnt('input','name','write-us-form-phone','405-431-1127')
-        homePage.clickSubmit()
+        formPage.clickSubmit()
         cy.contains('Phone is required').should('not.exist')
     })
 
     it('Should not say Message is required if a Message is entered and Submit is pressed', () => {
         homePage.typeInElmnt('textarea','name','write-us-form-message','Hi Kyree! Long time no see. Your site is impressive. Two thumbs up!')
-        homePage.clickSubmit()
+        formPage.clickSubmit()
         cy.contains('Message is required').should('not.exist')
     })
 
@@ -116,11 +117,10 @@ describe('Check to See if Write Us Page is functioning properly', () => {
         homePage.clickElmnt('div','class',"rc-header-dropdown-close") //click the div that contains the exit button
     })
     it('Should ensure that menu closed properly', () => { //The below elements in this it statement shouldn't exist, as the menu is closed.
-        cy.contains('Hi, my name is').should('not.exist')
-        cy.contains('I\'m writing in about').should('not.exist')
-        cy.contains('My email is').should('not.exist')
-        cy.contains('My phone is').should('not.exist')
-        cy.contains('I just wanted to say:').should('not.exist')
+        const menuItems = ['Hi, my name is','I\'m writing in about', 'My email is', 'My phone is', 'I just wanted to say:'] //These are the items that we are checking doesn't exist
+        for(let i = 0; i < menuItems.length; i++){
+            cy.contains(`${menuItems[i]}`).should('not.exist')
+        }
     })
 })
 

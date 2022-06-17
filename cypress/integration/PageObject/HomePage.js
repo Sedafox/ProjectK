@@ -22,9 +22,7 @@ class HomePage {
     clickMenuBttn(){
         this.clickElmnt('a','aria-label','Menu') //Click Menu button on the main page
     }
-    clickSubmit(){ //Clicks submit on form
-        cy.get(`button[type="submit"]`).click()//click submit
-    }
+
 
     clickAboutUs(){
         this.clickElmnt('a','class',"rc-header-menu-single-link col-md-3 col-sm-6 first") //Click AboutUs Button
