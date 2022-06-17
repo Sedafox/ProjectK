@@ -75,7 +75,7 @@ describe('Check to See if Write Us Page is functioning properly', () => {
         homePage.findElmntOnPage('textarea','id','g-recaptcha-response') //does the captcha exist?
     })
     it('Should require a Name, Topic, Email, Phone, and Message', () => {
-        homePage.clickElmnt('button','type','submit') //click that submit button so we can see what is required for the contact us form
+        formPage.clickSubmit() //click that submit button so we can see what is required for the contact us form
         const text = ['Name is required','Topic is required','Email is required','Phone is required','Message is required']
         for(let i = 0; i < text; i++){
             cy.contains(`${text[i]}`)
