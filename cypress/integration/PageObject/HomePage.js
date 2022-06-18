@@ -39,7 +39,7 @@ class HomePage {
     }
 
     closeCookiesWindow(){
-
+        //TODO
     }
 }
 export default HomePage
