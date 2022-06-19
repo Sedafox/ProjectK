@@ -1,0 +1,16 @@
+[TCID01]
+//User can close out of cookies message
+GIVEN the user is on the home page for the first time
+THEN the user observes the cookies message
+AND the user can close out of it with the X
+
+[TCID02]
+//User observes the Nav Bar from the Home page
+GIVEN the user is on the home page
+THEN the user observes the Nav bar
+AND the Nav bar contains 'Menu', 'Find Us', 'Call Us', and 'Write Us'
+
+[TCID03]
+//User observes four different Rover symbols on the Page
+GIVEN the user is on the home page
+THEN the user
